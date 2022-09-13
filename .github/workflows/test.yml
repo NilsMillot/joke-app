@@ -1,4 +1,4 @@
-name: Test Workflow
+name: Test workflow
 
 on:
   push:
@@ -6,35 +6,34 @@ on:
 jobs:
   build-test:
     runs-on: ubuntu-latest
-    
+
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
           node-version: 16
+
       - name: Install dependencies
         run: npm ci
-      - name: Run unit tests
+
+      - name: Test app
         run: npm run test
-      - name: Build
+
+      - name: Build app
         run: npm run build
 
       - name: Echo the name
-      - run:  |
-      | export NAME=Nils
-      | echo the $NAME
-  
+        run: |
+          export NAME=Michael
+          echo $NAME
   deploy:
     runs-on: ubuntu-latest
-
-    # wait for first job ok, of not it's simultaneous
     needs: build-test
-    
+
     steps:
-      # fetch le code du repository
       - uses: actions/checkout@v3
       - uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
         with:
           heroku_api_key: ${{secrets.JOKE_APP_TOKEN}}
-          heroku_app_name: "joke" #Must be unique in Heroku
-          heroku_email: "compte.mxs@hotmail.fr"
+          heroku_app_name: 'joke-app-m' #Must be unique in Heroku
+          heroku_email: 'michaeldemadet@gmail.com'
