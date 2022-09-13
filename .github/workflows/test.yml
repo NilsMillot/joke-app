@@ -23,3 +23,18 @@ jobs:
       - run:  |
       | export NAME=Nils
       | echo the $NAME
+  
+  deploy:
+    runs-on: ubuntu-latest
+
+    # wait for first job ok, of not it's simultaneous
+    needs: build-test
+    
+    steps:
+      # fetch le code du repository
+      - uses: actions/checkout@v3
+      - uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
+        with:
+          heroku_api_key: ${{secrets.JOKE_APP_TOKEN}}
+          heroku_app_name: "joke" #Must be unique in Heroku
+          heroku_email: "compte.mxs@hotmail.fr"
