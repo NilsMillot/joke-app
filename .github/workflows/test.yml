@@ -24,7 +24,7 @@ jobs:
 
       - name: Echo the name
         run: |
-          export NAME=Michael
+          export NAME=Nils
           echo $NAME
   deploy:
     runs-on: ubuntu-latest
@@ -35,5 +35,5 @@ jobs:
       - uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
         with:
           heroku_api_key: ${{secrets.JOKE_APP_TOKEN}}
-          heroku_app_name: 'joke-app-m' #Must be unique in Heroku
-          heroku_email: 'michaeldemadet@gmail.com'
+          heroku_app_name: 'joke' #Must be unique in Heroku
+          heroku_email: 'pajede5627@laluxy.com'
